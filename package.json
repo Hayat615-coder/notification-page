@@ -1,5 +1,12 @@
 {
+  "scripts": {
+    "dev": "npm --prefix vite-project run dev",
+    "build": "npm --prefix vite-project run build",
+    "lint": "npm --prefix vite-project run lint",
+    "preview": "npm --prefix vite-project run preview"
+  },
   "dependencies": {
+    "dev": "vite",
     "@tailwindcss/vite": "^4.3.3",
     "tailwindcss": "^4.3.3"
   }
