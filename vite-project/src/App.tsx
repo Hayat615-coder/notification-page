@@ -33,7 +33,7 @@ function App() {
               <h1 className="text-3xl font-semibold">Notifications</h1>
 
               {unradNotifications > 0 && (
-                <span className="bg-blue-950 text-white px-3 text-sm font-bold py-0 rounded-lg">
+                <span className="bg-blue-950 text-white px-3 text-sm font-bold py-2 rounded-lg">
                   {" "}
                   {unradNotifications}{" "}
                 </span>
