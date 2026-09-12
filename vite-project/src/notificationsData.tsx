@@ -1,18 +1,37 @@
-import Angela from "./assets/avatar-angela-gray.webp";
-import anna from "./assets/avatar-anna-kim.webp";
-import jacob from "./assets/avatar-jacob-thompson.webp";
-import kimberly from "./assets/avatar-kimberly-smith.webp";
-import mark from "./assets/avatar-mark-webber.webp";
-import nathan from "./assets/avatar-nathan-peterson.webp";
-import rizky from "./assets/avatar-rizky-hasanuddin.webp";
-import chess from "./assets/image-chess.webp";
+import avatarMarkWebber from "./assets/avatar-mark-webber.webp";
+import avatarAngelaGray from "./assets/avatar-angela-gray.webp";
+import avatarJacobThompson from "./assets/avatar-jacob-thompson.webp";
+import avatarRizkyHasanuddin from "./assets/avatar-rizky-hasanuddin.webp";
+import avatarKimberlySmith from "./assets/avatar-kimberly-smith.webp";
+import imageChess from "./assets/image-chess.webp";
+import avatarNathanPeterson from "./assets/avatar-nathan-peterson.webp";
+import avatarAnnaKim from "./assets/avatar-anna-kim.webp";
 
-export const InitialNotification = [
+export type TargetType = "post" | "group" | "message" | "picture";
+
+export interface User {
+  name: string;
+  avatar: string;
+}
+
+export interface NotificationItem {
+  id: number;
+  user: User;
+  action: string;
+  target?: string;
+  targetType?: TargetType;
+  time: string;
+  isUnread: boolean;
+  message?: string;
+  picture?: string;
+}
+
+export const InitialNotification: NotificationItem[] = [
   {
     id: 1,
     user: {
       name: "Mark Webber",
-      avatar: { mark },
+      avatar: avatarMarkWebber,
     },
     action: "reacted to your recent post",
     target: "My first tournament today!",
@@ -24,7 +43,7 @@ export const InitialNotification = [
     id: 2,
     user: {
       name: "Angela Gray",
-      avatar: { Angela },
+      avatar: avatarAngelaGray,
     },
     action: "followed you",
     time: "5m ago",
@@ -34,7 +53,7 @@ export const InitialNotification = [
     id: 3,
     user: {
       name: "Jacob Thompson",
-      avatar: { jacob },
+      avatar: avatarJacobThompson,
     },
     action: "has joined your group",
     target: "Chess Club",
@@ -46,7 +65,7 @@ export const InitialNotification = [
     id: 4,
     user: {
       name: "Rizky Hassanudin",
-      avatar: { rizky },
+      avatar: avatarRizkyHasanuddin,
     },
     action: "sent you a private message",
     targetType: "message",
@@ -59,18 +78,18 @@ export const InitialNotification = [
     id: 5,
     user: {
       name: "Kimberly Smith",
-      avatar: { kimberly },
+      avatar: avatarKimberlySmith,
     },
     action: "commented on your picture",
     time: "1 week ago",
     isUnread: false,
-    picture: { chess },
+    picture: imageChess,
   },
   {
     id: 6,
     user: {
       name: "Nathan Peterson",
-      avatar: { nathan },
+      avatar: avatarNathanPeterson,
     },
     action: "reacted to your recent post",
     target: "5 end-game strategies to increase your win rate",
@@ -82,7 +101,7 @@ export const InitialNotification = [
     id: 7,
     user: {
       name: "Anna Kim",
-      avatar: { anna },
+      avatar: avatarAnnaKim,
     },
     action: "left the group",
     target: "Chess Club",

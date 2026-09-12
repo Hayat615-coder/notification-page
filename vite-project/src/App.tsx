@@ -1,14 +1,29 @@
 import "./App.css";
-import Angela from "./assets/avatar-angela-gray.webp";
-import "./assets/avatar-anna-kim.webp";
-import "./assets/avatar-jacob-thompson.webp";
-import "./assets/avatar-kimberly-smith.webp";
-import mark from "./assets/avatar-mark-webber.webp";
-import "./assets/avatar-nathan-peterson.webp";
-import "./assets/avatar-rizky-hasanuddin.webp";
-import "./assets/image-chess.webp";
+import { useState } from "react";
+import { InitialNotification } from "./notificationsData";
 
 function App() {
+  const [notifications, setnotifications] = useState(InitialNotification);
+  const unradNotifications = notifications.filter(
+    (item) => item.isUnread,
+  ).length;
+  const markAllAsRead = () => {
+    setnotifications((items) =>
+      items.map((notification) => ({
+        ...notification,
+        isUnread: false,
+      })),
+    );
+  };
+  const handleNotificationClick = (id: number) => {
+    setnotifications((items) =>
+      items.map((notification) =>
+        notification.id === id
+          ? { ...notification, isUnread: false }
+          : notification,
+      ),
+    );
+  };
   return (
     <>
       <div className="flex items-center justify-center bg-[hsl(210,60%,98%)]">
@@ -16,35 +31,81 @@ function App() {
           <header className="flex flex-row items-center justify-between gap-8">
             <div className="flex flex-row gap-2">
               <h1 className="text-3xl font-semibold">Notifications</h1>
-              <button
-                type="button"
-                className="bg-blue-950 text-white px-3 text-sm font-bold py-0 rounded-lg"
-              >
-                3
-              </button>
+
+              {unradNotifications > 0 && (
+                <span className="bg-blue-950 text-white px-3 text-sm font-bold py-0 rounded-lg">
+                  {" "}
+                  {unradNotifications}{" "}
+                </span>
+              )}
             </div>
-            <button type="submit" className="text-gray-400">
+            <button
+              type="button"
+              onClick={markAllAsRead}
+              className="text-gray-400"
+            >
               Mark all as read
             </button>
           </header>
-          <ul className="mt-4">
-            <li className="flex flex-row gap-2 bg-[hsl(210,60%,98%)] p-4 rounded-lg">
-              <img src={mark} alt="Mark" className="w-10 h-10" />
-              <div className="flex flex-col">
-                <p className="flex gap-1 font-bold text-gray-600">
-                  Mark Webber{" "}
-                  <span className="text-gray-400">
-                    reacted to your recent post
-                  </span>
-                  <span className="font-bold text-gray-600">
-                    My first tornament today!
-                  </span>
-                  <span className="w-2 h-2 bg-red-600 rounded-full items-center my-2"></span>
-                </p>
-                <p className="text-gray-400">1m ago</p>
+
+          <div className="flex flex-col gap-3">
+            {notifications.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => handleNotificationClick(item.id)}
+                className={`flex flex-row gap-2 p-4 rounded-lg cursor-pointer ${item.isUnread ? "bg-[hsl(210,60%,98%)]" : "bg-transparent"}`}
+              >
+                <div className="flex gap-3 items-start w-full">
+                  <img
+                    src={item.user.avatar}
+                    alt={item.user.name}
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
+                  <div className="flex-1 text-sm text-slate-600">
+                    <div>
+                      <span className="font-bold text-slate-900 hover:text-blue-900 mr-1">
+                        {item.user.name}
+                      </span>
+                      <span>{item.action}</span>
+
+                      {/* Target link if applicable */}
+                      {item.target && (
+                        <span
+                          className={`ml-1 font-bold ${
+                            item.targetType === "group"
+                              ? "text-blue-900 hover:text-blue-900"
+                              : "text-slate-600 hover:text-blue-900"
+                          }`}
+                        >
+                          {item.target}
+                        </span>
+                      )}
+
+                      {item.isUnread && (
+                        <span className="inline-block w-2 h-2 bg-red-500 rounded-full ml-1.5 mb-0.5"></span>
+                      )}
+                    </div>
+
+                    <p className="text-xs text-slate-400 mt-0.5">{item.time}</p>
+
+                    {item.message && (
+                      <div className="mt-3 p-4 border border-slate-200 rounded-md bg-white hover:bg-slate-100 text-slate-600 transition-colors">
+                        {item.message}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {item.picture && (
+                  <img
+                    src={item.picture}
+                    alt="Commented attachment"
+                    className="w-10 h-10 rounded-md object-cover ml-3 shrink-0 hover:border-2 border-slate-300"
+                  />
+                )}
               </div>
-            </li>
-          </ul>
+            ))}
+          </div>
         </div>
       </div>
     </>
