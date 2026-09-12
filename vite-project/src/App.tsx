@@ -68,7 +68,6 @@ function App() {
                       </span>
                       <span>{item.action}</span>
 
-                      {/* Target link if applicable */}
                       {item.target && (
                         <span
                           className={`ml-1 font-bold ${
