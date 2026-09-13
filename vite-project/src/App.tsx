@@ -3,12 +3,12 @@ import { useState } from "react";
 import { InitialNotification } from "./notificationsData";
 
 function App() {
-  const [notifications, setnotifications] = useState(InitialNotification);
-  const unradNotifications = notifications.filter(
+  const [notifications, setNotifications] = useState(InitialNotification);
+  const unreadNotifications = notifications.filter(
     (item) => item.isUnread,
   ).length;
   const markAllAsRead = () => {
-    setnotifications((items) =>
+    setNotifications((items) =>
       items.map((notification) => ({
         ...notification,
         isUnread: false,
@@ -16,7 +16,7 @@ function App() {
     );
   };
   const handleNotificationClick = (id: number) => {
-    setnotifications((items) =>
+    setNotifications((items) =>
       items.map((notification) =>
         notification.id === id
           ? { ...notification, isUnread: false }
@@ -32,10 +32,10 @@ function App() {
             <div className="flex flex-row gap-2">
               <h1 className="text-3xl font-semibold">Notifications</h1>
 
-              {unradNotifications > 0 && (
+              {unreadNotifications > 0 && (
                 <span className="bg-blue-950 text-white px-3 text-sm font-bold py-2 rounded-lg">
                   {" "}
-                  {unradNotifications}{" "}
+                  {unreadNotifications}{" "}
                 </span>
               )}
             </div>

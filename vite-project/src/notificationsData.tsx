@@ -105,7 +105,7 @@ export const InitialNotification: NotificationItem[] = [
     },
     action: "left the group",
     target: "Chess Club",
-    targetType: "post",
+    targetType: "group",
     time: "2 weeks ago",
     isUnread: false,
   },
